@@ -1,4 +1,4 @@
-package entidades;
+package estruturas;
 
 public class Posicao {
 	private int linha;
