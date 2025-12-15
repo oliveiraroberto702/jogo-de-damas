@@ -1,12 +1,14 @@
 package aplicacao;
 
-import estruturas.Tabuleiro;
+import partida.PartidaDeDamas;
 
 class Programa {
 	
 	 public static void main(String[] args) {
 		
-	Tabuleiro tabuleiro = new Tabuleiro(8,8);
+		 PartidaDeDamas partidaDeDamas = new PartidaDeDamas();
+		 UI.montaTabuleiro(partidaDeDamas.getPecas());
+		 
 		
 	}
 }
