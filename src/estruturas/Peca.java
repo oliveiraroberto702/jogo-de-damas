@@ -8,7 +8,7 @@ public class Peca {
 		posicao = null; // desnecessário
 	}
 	
-	protected Tabuleiro getTabuleirp() {  // somente subclasses e classes do mesmpo pacote
+	protected Tabuleiro getTabuleiro() {  // somente subclasses e classes do mesmpo pacote
 		return tabuleiro;
 	}
 	
