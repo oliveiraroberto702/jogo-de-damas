@@ -15,5 +15,10 @@ public class Dama extends PecaDaPartida{
 		final String ANSI_WHITE = "\u001B[37m";
 		return "D";
 	}
+	@Override
+	public boolean[][] possiveisMovimentos() {
+		boolean[][] mat = new boolean[getTabuleiro().getLinhas()][getTabuleiro().getColunas()];
+		return mat;
+	}
 
 }

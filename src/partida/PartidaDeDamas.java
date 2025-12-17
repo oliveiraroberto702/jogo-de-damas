@@ -45,6 +45,9 @@ public class PartidaDeDamas {
 		if(!tabuleiro.haUmaPeca(posicao)) {
 			throw new PartidaExcecao("Não existe peça na posição de origem");
 		}
+		if(!tabuleiro.peca(posicao).existeAlgumMovimentoPossivel()) {
+			throw new PartidaExcecao("Não há movimentos possíveis para a peça escolhida");
+		}
 		
 	}
 	private void colocaNovaPeca(char coluna, int linha, PecaDaPartida peca) {

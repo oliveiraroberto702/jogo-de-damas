@@ -14,4 +14,9 @@ public class Peao  extends PecaDaPartida{
 	public String toString() {
 		return "p";
 	}
+	@Override
+	public boolean[][] possiveisMovimentos() {
+		boolean[][] mat = new boolean[getTabuleiro().getLinhas()][getTabuleiro().getColunas()];
+		return mat;
+	}
 }

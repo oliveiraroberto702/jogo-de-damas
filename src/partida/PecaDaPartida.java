@@ -3,7 +3,7 @@ package partida;
 import estruturas.Peca;
 import estruturas.Tabuleiro;
 
-public class PecaDaPartida extends Peca {
+public abstract class PecaDaPartida extends Peca {
 	private Cor cor;
 
 	public PecaDaPartida(Tabuleiro tabuleiro, Cor cor) {
