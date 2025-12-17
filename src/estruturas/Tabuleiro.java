@@ -23,32 +23,44 @@ public class Tabuleiro {
 	// as peças irão ter "gets" com métodos específico que não irão retornar uma matriz inteira e sim uma peça por vez
 	
 	public Peca peca(int linha, int coluna) {
-		if(!ExistePosicao(linha, coluna) ) {
+		if(!existePosicao(linha, coluna) ) {
 			throw new TabuleiroExcecao("Posição externa ao tabuleiro");
 		}
 		return pecas[linha][coluna]; 
 	}
 	public Peca peca(Posicao posicao) {
-		if(!ExistePosicao(posicao) ) {
+		if(!existePosicao(posicao) ) {
 			throw new TabuleiroExcecao("Posição externa ao tabuleiro");
 		}
 		return pecas[posicao.getLinha()][posicao.getColuna()];
 	}
 	public void colocaPeca(Peca peca, Posicao posicao) {
-		if(HaUmaPeca(posicao)) {
+		if(haUmaPeca(posicao)) {
 			throw new TabuleiroExcecao("Já existe umaa peça nesta posição " + posicao);
 		}
 		pecas[posicao.getLinha()][posicao.getColuna()] = peca;
 		peca.posicao = posicao;     
 	}
-	public boolean ExistePosicao(int linha, int coluna) {
+	public Peca removePeca(Posicao posicao) {
+		if(!existePosicao(posicao)) {
+			throw new TabuleiroExcecao("Posição externa ao tabuleiro");
+		}
+		if(peca(posicao) == null) {
+			return null;
+		}
+		Peca aux = peca(posicao);
+		aux.posicao = null;
+		pecas[posicao.getLinha()][posicao.getColuna()] = null;
+		return aux;
+	}
+	public boolean existePosicao(int linha, int coluna) {
 		return linha >= 0 && linha < linhas && coluna >=0 && coluna < colunas;
 	}
-	public boolean ExistePosicao(Posicao posicao) {
-		return ExistePosicao(posicao.getLinha(), posicao.getColuna());
+	public boolean existePosicao(Posicao posicao) {
+		return existePosicao(posicao.getLinha(), posicao.getColuna());
 	}
-	public boolean HaUmaPeca(Posicao posicao) {
-		if(!ExistePosicao(posicao) ) {
+	public boolean haUmaPeca(Posicao posicao) {
+		if(!existePosicao(posicao) ) {
 			throw new TabuleiroExcecao("Posição externa ao tabuleiro");
 		}
 		return peca(posicao) != null;
