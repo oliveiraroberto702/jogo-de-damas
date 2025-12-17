@@ -1,8 +1,10 @@
 package aplicacao;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import partida.PartidaDeDamas;
+import partida.PartidaExcecao;
 import partida.PecaDaPartida;
 import partida.PosicaoDaPeca;
 
@@ -13,16 +15,27 @@ class Programa {
 		 PartidaDeDamas partidaDeDamas = new PartidaDeDamas();
 		 
 		 while (true) {
-			 UI.montaTabuleiro(partidaDeDamas.getPecas());
-			 System.out.println();
-			 System.out.print("Origem: ");
-			 PosicaoDaPeca origem = UI.lerPosicionamentoDasPecas(sc);
-			 
-			 System.out.println();
-			 System.out.print("Destino: ");
-			 PosicaoDaPeca destino = UI.lerPosicionamentoDasPecas(sc);
-			 
-			 PecaDaPartida pecaComida = partidaDeDamas.performaMovimentoDaPartida(origem, destino);
+			 try {
+				 UI.clearScreen();
+				 UI.montaTabuleiro(partidaDeDamas.getPecas());
+				 System.out.println();
+				 System.out.print("Origem: ");
+				 PosicaoDaPeca origem = UI.lerPosicionamentoDasPecas(sc);
+				 
+				 System.out.println();
+				 System.out.print("Destino: ");
+				 PosicaoDaPeca destino = UI.lerPosicionamentoDasPecas(sc);
+				 
+				 PecaDaPartida pecaComida = partidaDeDamas.performaMovimentoDaPartida(origem, destino);
+			 }	
+			 catch(PartidaExcecao e) {
+				 System.out.println(e.getMessage());
+				 sc.nextLine();
+			 }
+			 catch(InputMismatchException e) {
+				 System.out.println(e.getMessage());
+				 sc.nextLine();
+			 }
 		 } 
 			 
 		 
