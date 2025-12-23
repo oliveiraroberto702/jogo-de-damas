@@ -1,9 +1,13 @@
 package aplicacao;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import partida.Cor;
+import partida.PartidaDeDamas;
 import partida.PecaDaPartida;
 import partida.PosicaoDaPeca;
 
@@ -29,7 +33,7 @@ public class UI {
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
 	// https://stackoverflow.com/questions/2979383/java-clear-the-console
-	public static void clearScreen() {
+	public static void limpaTela() {
 		System.out.print("\033[H\033[2J");
 		System.out.flush();
 	}
@@ -45,67 +49,122 @@ public class UI {
 			throw new InputMismatchException("Erro de leitura na PosicaoDaPeca. Valores válidos são de a1 até h8.");
 		}
 	}
-
+	  
+	public static void imprimePartida (PartidaDeDamas partidaDeDamas, List<PecaDaPartida> capturada) {
+		montaTabuleiro(partidaDeDamas.getPecas());
+		System.out.println();
+		imprimePecaCapturada(capturada);
+		System.out.println();
+		System.out.println("Turno: " + partidaDeDamas.getTurno());
+		System.out.println("Aguardando jogador: " + partidaDeDamas.getJogadorCorrente());
+		 
+	}
 	public static void montaTabuleiro(PecaDaPartida[][] pecas) {
 		int nblack = 0;
 		int nwhite = 0;
 		int row = 0;
 		int col = 0;
+		String espaco="                                        ";
+		for (int i=0; i<10; i++) {
+			System.out.println();
+		}
 		for (int i = 0; i < pecas.length; i++) {
-			System.out.print((8 - i) + " ");
+			System.out.print(espaco+(8 - i) + " ");
 			for (int j = 0; j < pecas.length; j++) {
 				if (nblack == nwhite) {
 					nblack++;
 				} else {
 					nwhite++;
 				}
-				imprimePeca(pecas[i][j], nblack, nwhite, row, col);
+				imprimePeca(pecas[i][j], false, nblack, nwhite, row, col);
 				col++;
 			}
 			System.out.println();
 			row++;
 
 		}
-		System.out.println("   a  b  c  d  e  f  g  h");
+		System.out.println(espaco + "   a   b   c   d   e   f   g   h");
 	}
+	public static void montaTabuleiro(PecaDaPartida[][] pecas, boolean[][] possiveisMovimentos) {
+		
+		
+		int nblack = 0;
+		int nwhite = 0;
+		int row = 0;
+		int col = 0;
+		String espaco="                                        ";
+		for (int i=0; i<10; i++) {
+			System.out.println();
+		}
+		for (int i = 0; i < pecas.length; i++) {
+			System.out.print(espaco+ (8 - i) + " ");
+			for (int j = 0; j < pecas.length; j++) {
+				if (nblack == nwhite) {
+					nblack++;
+				} else {
+					nwhite++;
+				}
+				imprimePeca(pecas[i][j], possiveisMovimentos[i][j], nblack, nwhite, row, col);
+				col++;
+			}
+			System.out.println();
+			row++;
 
-	private static void imprimePeca(PecaDaPartida peca, int nblack, int nwhite, int row, int col) { // imprime uma única
-																									// peça
+		}
+		System.out.println(espaco+"   a   b   c   d   e   f   g   h");
+	}
+	
+	private static void imprimePeca(PecaDaPartida peca, boolean background, int nblack, int nwhite, int row, int col) { // imprime uma única
+		
 		if (peca == null) {
 			if (nblack != nwhite) {
 				if (row % 2 == 0) {
-					System.out.print(ANSI_YELLOW_BACKGROUND + "   " + ANSI_RESET);
+					System.out.print(ANSI_WHITE_BACKGROUND + "    " + ANSI_RESET);
 				} else {
-					System.out.print(ANSI_WHITE_BACKGROUND + "   " + ANSI_RESET);
-				}
+					if (!background) {
+						System.out.print(ANSI_YELLOW_BACKGROUND + "    " + ANSI_RESET);	
+					} else {
+						System.out.print(ANSI_BLUE_BACKGROUND + "    " + ANSI_RESET);	
+					}
+					
+				}	
 			} else {
 				if (row % 2 == 0) {
-					System.out.print(ANSI_WHITE_BACKGROUND + "   " + ANSI_RESET);
+					
+					if(!background) {
+						System.out.print(ANSI_YELLOW_BACKGROUND + "    " + ANSI_RESET);
+					} else {
+						System.out.print(ANSI_BLUE_BACKGROUND + "    " + ANSI_RESET);
+					}	
+					
 				} else {
-					System.out.print(ANSI_YELLOW_BACKGROUND + "   " + ANSI_RESET);
+					System.out.print(ANSI_WHITE_BACKGROUND + "    " + ANSI_RESET);
 				}
+				
 			}
 
 		} else {
-			if (peca.getCor() == Cor.WHITE) {
+			if (peca.getCor() == Cor.BLACK) {
+				
 				if ((row == 0 || row == 2 || row == 4 || row == 6) && col % 2 == 0) {
-					System.out.print(ANSI_YELLOW_BACKGROUND + ANSI_GREEN + " " + peca + " " + ANSI_RESET);
+					System.out.print(ANSI_WHITE_BACKGROUND + ANSI_BLACK + peca + ANSI_RESET);
 				} else if ((row == 0 || row == 2 || row == 4 || row == 6) && col % 2 != 0) {
-					System.out.print(ANSI_WHITE_BACKGROUND + ANSI_GREEN + " " + peca + " " + ANSI_RESET);
+					System.out.print(ANSI_YELLOW_BACKGROUND + ANSI_BLACK + peca + ANSI_RESET);
 				} else if ((row == 1 || row == 3 || row == 5 || row == 7) && col % 2 == 0) {
-					System.out.print(ANSI_WHITE_BACKGROUND + ANSI_GREEN + " " + peca + " " + ANSI_RESET);
+					System.out.print(ANSI_YELLOW_BACKGROUND + ANSI_BLACK + peca + ANSI_RESET);
 				} else if ((row == 1 || row == 3 || row == 5 || row == 7) && col % 2 != 0) {
-					System.out.print(ANSI_YELLOW_BACKGROUND + ANSI_GREEN + " " + peca + " " + ANSI_RESET);
+					System.out.print(ANSI_WHITE_BACKGROUND + ANSI_BLACK + peca + ANSI_RESET);
 				}
 			} else {
+				
 				if ((row == 0 || row == 2 || row == 4 || row == 6) && col % 2 == 0) {
-					System.out.print(ANSI_YELLOW_BACKGROUND + ANSI_RED + " " + peca + " " + ANSI_RESET);
+					System.out.print(ANSI_WHITE_BACKGROUND + ANSI_RED + peca + ANSI_RESET);
 				} else if ((row == 0 || row == 2 || row == 4 || row == 6) && col % 2 != 0) {
-					System.out.print(ANSI_WHITE_BACKGROUND + ANSI_RED + " " + peca + " " + ANSI_RESET);
+					System.out.print(ANSI_YELLOW_BACKGROUND + ANSI_RED + peca + ANSI_RESET);
 				} else if ((row == 1 || row == 3 || row == 5 || row == 7) && col % 2 == 0) {
-					System.out.print(ANSI_WHITE_BACKGROUND + ANSI_RED + " " + peca + " " + ANSI_RESET);
+					System.out.print(ANSI_YELLOW_BACKGROUND + ANSI_RED+ peca + ANSI_RESET);
 				} else if ((row == 1 || row == 3 || row == 5 || row == 7) && col % 2 != 0) {
-					System.out.print(ANSI_YELLOW_BACKGROUND + ANSI_RED + " " + peca + " " + ANSI_RESET);
+					System.out.print(ANSI_WHITE_BACKGROUND + ANSI_RED + peca + ANSI_RESET);
 				}
 			}
 		}
@@ -113,5 +172,20 @@ public class UI {
 		// System.out.print(" ");
 
 	}
-
+	private static void imprimePecaCapturada(List<PecaDaPartida> pecaCapturada) {
+		List<PecaDaPartida> vermelha = pecaCapturada.stream().filter(x -> x.getCor()==Cor.RED).collect(Collectors.toList());
+		List<PecaDaPartida> preta = pecaCapturada.stream().filter(x -> x.getCor()==Cor.BLACK).collect(Collectors.toList());
+		System.out.println("Peças capturadas:");
+		System.out.print("Vermelha: ");
+		System.out.print(ANSI_RED);
+		System.out.println(Arrays.toString(vermelha.toArray()));
+		System.out.print(ANSI_RESET);
+		System.out.print("Preta:");
+		System.out.print(ANSI_RED);
+		System.out.println(Arrays.toString(preta.toArray()));
+		System.out.print(ANSI_RESET);
+		
+		
+	}
+	 
 }

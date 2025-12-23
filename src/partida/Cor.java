@@ -1,7 +1,7 @@
 package partida;
 
 public enum Cor {
-	WHITE,
+	RED,
 	BLACK;
 
 }

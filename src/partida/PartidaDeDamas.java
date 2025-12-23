@@ -1,5 +1,8 @@
 package partida;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import estruturas.Peca;
 import estruturas.Posicao;
 import estruturas.Tabuleiro;
@@ -7,13 +10,27 @@ import partida.pecas.Dama;
 import partida.pecas.Peao;
 
 public class PartidaDeDamas {
+	private int turno;
+	private Cor jogadorCorrente;
 	private Tabuleiro tabuleiro;
+	private List<Peca> pecasNoTabuleiro = new ArrayList<>();
+	private List<Peca> pecasCapturadas = new ArrayList<>();
 	
 	public PartidaDeDamas() {
 		tabuleiro = new Tabuleiro(8,8); // aqui é que se define que o tabuleiro tem que ser 8 x 8
+		turno=1;
+		jogadorCorrente= Cor.RED;
 		cargaInicial();
 	}
-
+	
+	public int getTurno() {
+		return turno;	
+	}
+	
+	public Cor getJogadorCorrente() {
+		return jogadorCorrente;
+	}
+	
 	public PecaDaPartida [][] getPecas() {
 		
 		PecaDaPartida[][] mat = new PecaDaPartida[tabuleiro.getLinhas()][tabuleiro.getColunas()];
@@ -25,70 +42,98 @@ public class PartidaDeDamas {
 		}
 		return mat;
     }
-	
-	public PecaDaPartida performaMovimentoDaPartida(PosicaoDaPeca posicaoOrigem, PosicaoDaPeca posicaoDestino) {
+	public boolean [][] possiveisMovimentos(PosicaoDaPeca posicaoDeOrigem) {
+		Posicao posicao = posicaoDeOrigem.paraPosicao();
+		validarPosicaoOrigem(posicao);
+		return tabuleiro.peca(posicao).possiveisMovimentos();
+	}
+	public PecaDaPartida performaMovimentoDaPartida(PosicaoDaPeca posicaoOrigem, PosicaoDaPeca posicaoDestino, PosicaoDaPeca posicaoCapturada) {
 		Posicao origem = posicaoOrigem.paraPosicao();
 		Posicao destino = posicaoDestino.paraPosicao();
+		Posicao capturada=posicaoCapturada.paraPosicao();
+		
 		validarPosicaoOrigem(origem);
-		Peca  pecaComida = fazMovimento(origem, destino);
-		return (PecaDaPartida) pecaComida;
+		validarPosicaoDestino(origem, destino, destino);
+		Peca  pecaCapturada = fazMovimento(origem, destino, capturada);
+		proximoTurno();
+		return (PecaDaPartida) pecaCapturada;
 		
 	}
 	
-	private Peca fazMovimento(Posicao origem, Posicao destino) {
+	private Peca fazMovimento(Posicao origem, Posicao destino, Posicao destinoCapturada) {
+			
 		Peca p =tabuleiro.removePeca(origem);
-		Peca pecaComida = tabuleiro.removePeca(destino);
+		Peca pecaCapturada = tabuleiro.removePeca(destinoCapturada);
 		tabuleiro.colocaPeca(p, destino);
-		return pecaComida;
+		
+		if(pecaCapturada !=null) {
+			pecasNoTabuleiro.remove(destino);
+			pecasCapturadas.add(pecaCapturada);
+		}
+		return pecaCapturada;
 	}
+	
 	private void validarPosicaoOrigem(Posicao posicao) {
+		if((posicao.getLinha()%2==0 && posicao.getColuna()%2==0) || (posicao.getLinha()%2!=0 && posicao.getColuna()%2!=0)) {
+			throw new PartidaExcecao("Não existe peça na posição de origem");
+		}
 		if(!tabuleiro.haUmaPeca(posicao)) {
 			throw new PartidaExcecao("Não existe peça na posição de origem");
+		}
+		if(jogadorCorrente != ((PecaDaPartida) tabuleiro.peca(posicao)).getCor()) { 
+			throw new PartidaExcecao("A cor da peça escolhida não é a sua");
 		}
 		if(!tabuleiro.peca(posicao).existeAlgumMovimentoPossivel()) {
 			throw new PartidaExcecao("Não há movimentos possíveis para a peça escolhida");
 		}
 		
 	}
+	
+	private void validarPosicaoDestino(Posicao origem, Posicao destino, Posicao posicaoDestinoCapturada) {
+		if(!tabuleiro.peca(origem).possivelMovimento(destino)) {
+			throw new PartidaExcecao("A peça escolhida não pode movimentar-se para posição de destino");
+		}
+	}
+	
+	private void proximoTurno() {
+		turno++;
+		jogadorCorrente = ((jogadorCorrente == Cor.RED) ? Cor.BLACK: Cor.RED);
+		
+	}
 	private void colocaNovaPeca(char coluna, int linha, PecaDaPartida peca) {
 		tabuleiro.colocaPeca(peca, new PosicaoDaPeca(coluna, linha).paraPosicao());
-		
+		pecasNoTabuleiro.add(peca);
 	}
 	private void cargaInicial() {
 		
-		colocaNovaPeca('a',8, new Peao(tabuleiro, Cor.WHITE));
-		colocaNovaPeca('b',8, new Peao(tabuleiro, Cor.WHITE));
-		colocaNovaPeca('c',8, new Peao(tabuleiro, Cor.WHITE));
-		colocaNovaPeca('d',8, new Peao(tabuleiro, Cor.WHITE));
-		colocaNovaPeca('e',8, new Peao(tabuleiro, Cor.WHITE));
-		colocaNovaPeca('f',8, new Peao(tabuleiro, Cor.WHITE));
-		colocaNovaPeca('g',8, new Peao(tabuleiro, Cor.WHITE));
-		colocaNovaPeca('h',8, new Peao(tabuleiro, Cor.WHITE));
-		colocaNovaPeca('a',7, new Peao(tabuleiro, Cor.WHITE));
-		colocaNovaPeca('b',7, new Peao(tabuleiro, Cor.WHITE));
-		colocaNovaPeca('c',7, new Peao(tabuleiro, Cor.WHITE));
-		colocaNovaPeca('d',7, new Peao(tabuleiro, Cor.WHITE));
-		colocaNovaPeca('e',7, new Peao(tabuleiro, Cor.WHITE));
-		colocaNovaPeca('f',7, new Peao(tabuleiro, Cor.WHITE));
-		colocaNovaPeca('g',7, new Peao(tabuleiro, Cor.WHITE));
-		colocaNovaPeca('h',7, new Dama(tabuleiro, Cor.WHITE));
+	   
+	//	colocaNovaPeca('b',8, new Peao(tabuleiro, Cor.BLACK));
+		colocaNovaPeca('d',8, new Peao(tabuleiro, Cor.BLACK));
+		colocaNovaPeca('f',8, new Peao(tabuleiro, Cor.BLACK));
+		colocaNovaPeca('h',8, new Peao(tabuleiro, Cor.BLACK));
+	//	colocaNovaPeca('a',7, new Peao(tabuleiro, Cor.BLACK));
+		colocaNovaPeca('c',7, new Peao(tabuleiro, Cor.BLACK));
+		colocaNovaPeca('e',7, new Peao(tabuleiro, Cor.BLACK));
+		colocaNovaPeca('g',7, new Peao(tabuleiro, Cor.BLACK));
+		colocaNovaPeca('b',6, new Peao(tabuleiro, Cor.BLACK));  
+		colocaNovaPeca('d',6, new Peao(tabuleiro, Cor.BLACK));
+		colocaNovaPeca('f',6, new Peao(tabuleiro, Cor.BLACK));
+		colocaNovaPeca('h',6, new Peao(tabuleiro, Cor.BLACK));
 		
-		colocaNovaPeca('a',2, new Peao(tabuleiro, Cor.BLACK));
-		colocaNovaPeca('b',2, new Peao(tabuleiro, Cor.BLACK));
-		colocaNovaPeca('c',2, new Peao(tabuleiro, Cor.BLACK));
-		colocaNovaPeca('d',2, new Peao(tabuleiro, Cor.BLACK));
-		colocaNovaPeca('e',2, new Peao(tabuleiro, Cor.BLACK));
-		colocaNovaPeca('f',2, new Peao(tabuleiro, Cor.BLACK));
-		colocaNovaPeca('g',2, new Peao(tabuleiro, Cor.BLACK));
-		colocaNovaPeca('h',2, new Peao(tabuleiro, Cor.BLACK));
-		colocaNovaPeca('a',1, new Peao(tabuleiro, Cor.BLACK));
-		colocaNovaPeca('b',1, new Peao(tabuleiro, Cor.BLACK));
-		colocaNovaPeca('c',1, new Peao(tabuleiro, Cor.BLACK));
-		colocaNovaPeca('d',1, new Peao(tabuleiro, Cor.BLACK));
-		colocaNovaPeca('e',1, new Peao(tabuleiro, Cor.BLACK));
-		colocaNovaPeca('f',1, new Peao(tabuleiro, Cor.BLACK));
-		colocaNovaPeca('g',1, new Peao(tabuleiro, Cor.BLACK));
-		colocaNovaPeca('h',1, new Dama(tabuleiro, Cor.BLACK));
+	
+		colocaNovaPeca('a',3, new Peao(tabuleiro, Cor.RED));
+		colocaNovaPeca('c',3, new Peao(tabuleiro, Cor.RED));
+		colocaNovaPeca('e',3, new Peao(tabuleiro, Cor.RED));
+		colocaNovaPeca('g',3, new Peao(tabuleiro, Cor.RED));
+		colocaNovaPeca('b',2, new Peao(tabuleiro, Cor.RED));
+		colocaNovaPeca('d',2, new Peao(tabuleiro, Cor.RED));
+		colocaNovaPeca('f',2, new Peao(tabuleiro, Cor.RED));
+		colocaNovaPeca('h',2, new Peao(tabuleiro, Cor.RED));
+		colocaNovaPeca('a',1, new Peao(tabuleiro, Cor.RED));
+		colocaNovaPeca('c',1, new Peao(tabuleiro, Cor.RED));
+		colocaNovaPeca('e',1, new Peao(tabuleiro, Cor.RED));
+		colocaNovaPeca('a',7, new Peao(tabuleiro, Cor.RED));   //g1
+		
 		
 		
 		

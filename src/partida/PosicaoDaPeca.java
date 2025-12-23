@@ -19,7 +19,7 @@ public class PosicaoDaPeca {
 		return linha;
 	}
 	
-	protected Posicao paraPosicao() {
+	protected Posicao paraPosicao() { 
 		return new Posicao(8 - linha, coluna - 'a' );
 	}
 	protected static PosicaoDaPeca daPosicao(Posicao posicao) {

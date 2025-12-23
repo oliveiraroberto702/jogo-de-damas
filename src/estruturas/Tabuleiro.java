@@ -35,9 +35,13 @@ public class Tabuleiro {
 		return pecas[posicao.getLinha()][posicao.getColuna()];
 	}
 	public void colocaPeca(Peca peca, Posicao posicao) {
+	    if((posicao.getLinha()%2 == 0 && posicao.getColuna()%2 == 0) || (posicao.getLinha()%2 != 0 && posicao.getColuna()%2 != 0)) {
+	    	throw new TabuleiroExcecao("Posição de origem sem peça");
+		}
 		if(haUmaPeca(posicao)) {
 			throw new TabuleiroExcecao("Já existe umaa peça nesta posição " + posicao);
 		}
+		
 		pecas[posicao.getLinha()][posicao.getColuna()] = peca;
 		peca.posicao = posicao;     
 	}
@@ -45,7 +49,7 @@ public class Tabuleiro {
 		if(!existePosicao(posicao)) {
 			throw new TabuleiroExcecao("Posição externa ao tabuleiro");
 		}
-		if(peca(posicao) == null) {
+		if(peca(posicao) == null ) {
 			return null;
 		}
 		Peca aux = peca(posicao);
@@ -54,10 +58,11 @@ public class Tabuleiro {
 		return aux;
 	}
 	public boolean existePosicao(int linha, int coluna) {
-		return linha >= 0 && linha < linhas && coluna >=0 && coluna < colunas;
+		 return linha >= 0 && linha < linhas && coluna >=0 && coluna < colunas;
 	}
 	public boolean existePosicao(Posicao posicao) {
 		return existePosicao(posicao.getLinha(), posicao.getColuna());
+						
 	}
 	public boolean haUmaPeca(Posicao posicao) {
 		if(!existePosicao(posicao) ) {

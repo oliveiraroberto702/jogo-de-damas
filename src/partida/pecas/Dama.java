@@ -11,9 +11,7 @@ public class Dama extends PecaDaPartida{
 	}
 	@Override
 	public String toString() {
-		final String ANSI_RESET = "\u001B[0m";
-		final String ANSI_WHITE = "\u001B[37m";
-		return "D";
+			return "DAMA";
 	}
 	@Override
 	public boolean[][] possiveisMovimentos() {
