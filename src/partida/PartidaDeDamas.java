@@ -53,8 +53,23 @@ public class PartidaDeDamas {
 		Posicao capturada=posicaoCapturada.paraPosicao();
 		
 		validarPosicaoOrigem(origem);
-		validarPosicaoDestino(origem, destino, destino);
+		validarPosicaoDestino(origem, destino, destino); //destino
 		Peca  pecaCapturada = fazMovimento(origem, destino, capturada);
+		
+		
+		//meu
+		String s="peão";
+		PecaDaPartida [][] pec = getPecas();
+		if ((getJogadorCorrente() == Cor.RED && destino.getLinha() ==0 || getJogadorCorrente() == Cor.BLACK && destino.getLinha() ==7 ) && s.equals(pec[destino.getLinha()][destino.getColuna()].toString())) {
+		   	Peca p =tabuleiro.removePeca(destino);
+		   	if (getJogadorCorrente() == Cor.RED) {
+		   		colocaNovaPeca((char) ('a' +destino.getColuna()),8 - destino.getLinha() , new Dama(tabuleiro, Cor.RED));
+		   	} else {
+		   		colocaNovaPeca((char) ('a' +destino.getColuna()),8 - destino.getLinha() , new Dama(tabuleiro, Cor.BLACK));
+		   	}
+		}
+		
+		// meu
 		proximoTurno();
 		return (PecaDaPartida) pecaCapturada;
 		
@@ -62,8 +77,10 @@ public class PartidaDeDamas {
 	
 	private Peca fazMovimento(Posicao origem, Posicao destino, Posicao destinoCapturada) {
 			
-		Peca p =tabuleiro.removePeca(origem);
-		Peca pecaCapturada = tabuleiro.removePeca(destinoCapturada);
+		Peca p =tabuleiro.removePeca(origem); 
+		Peca pecaCapturada = tabuleiro.removePeca(destinoCapturada); 
+		
+		
 		tabuleiro.colocaPeca(p, destino);
 		
 		if(pecaCapturada !=null) {
@@ -107,11 +124,11 @@ public class PartidaDeDamas {
 	private void cargaInicial() {
 		
 	   
-	//	colocaNovaPeca('b',8, new Peao(tabuleiro, Cor.BLACK));
+		colocaNovaPeca('b',8, new Peao(tabuleiro, Cor.BLACK));
 		colocaNovaPeca('d',8, new Peao(tabuleiro, Cor.BLACK));
 		colocaNovaPeca('f',8, new Peao(tabuleiro, Cor.BLACK));
 		colocaNovaPeca('h',8, new Peao(tabuleiro, Cor.BLACK));
-	//	colocaNovaPeca('a',7, new Peao(tabuleiro, Cor.BLACK));
+		colocaNovaPeca('a',7, new Peao(tabuleiro, Cor.BLACK));
 		colocaNovaPeca('c',7, new Peao(tabuleiro, Cor.BLACK));
 		colocaNovaPeca('e',7, new Peao(tabuleiro, Cor.BLACK));
 		colocaNovaPeca('g',7, new Peao(tabuleiro, Cor.BLACK));
@@ -132,7 +149,7 @@ public class PartidaDeDamas {
 		colocaNovaPeca('a',1, new Peao(tabuleiro, Cor.RED));
 		colocaNovaPeca('c',1, new Peao(tabuleiro, Cor.RED));
 		colocaNovaPeca('e',1, new Peao(tabuleiro, Cor.RED));
-		colocaNovaPeca('a',7, new Peao(tabuleiro, Cor.RED));   //g1
+		colocaNovaPeca('g',1, new Peao(tabuleiro, Cor.RED));   //g1
 		
 		
 		

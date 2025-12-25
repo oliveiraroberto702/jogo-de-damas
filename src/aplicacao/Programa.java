@@ -31,8 +31,13 @@ class Programa {
 				 PosicaoDaPeca origem = UI.lerPosicionamentoDasPecas(sc);
 				 
 				 boolean [][] possiveisMovimentos = partidaDeDamas.possiveisMovimentos(origem);
-				//meu UI.limpaTela();
-				// UI.montaTabuleiro(partidaDeDamas.getPecas(), possiveisMovimentos);
+				
+				UI.limpaTela();
+						 
+				 UI.montaTabuleiro(partidaDeDamas.getPecas(), possiveisMovimentos);
+				 System.out.println("Turno: " + partidaDeDamas.getTurno());
+				 System.out.println("Aguardando jogador: "+ partidaDeDamas.getJogadorCorrente());
+				 System.out.print("Origem: " + origem);
 				 System.out.println();
 				 System.out.print("Destino: ");
 				 PosicaoDaPeca destino = UI.lerPosicionamentoDasPecas(sc);
@@ -54,15 +59,12 @@ class Programa {
 								i2=i;
 								j2=j;
 							}
-								
 						}
-						
+						System.out.print(possiveisMovimentos[i][j] + " , ");	
 					}
-					   
-				 }
-				 System.out.println();
-				 System.out.print("Origem: " + origem);
-				 
+					System.out.println();
+				}
+			
 				 char orig_coluna=origem.getColuna();
 				 int orig_linha=origem.getLinha();
 					
@@ -160,23 +162,14 @@ class Programa {
 	                }          
 				}              
 			
-				          
 				
-				
-				
-				
-				PosicaoDaPeca destinoCapturada= new PosicaoDaPeca ((char) ('a' + colunaCapturada), 8 - linhaCapturada);
-				
-				/*				 
-				 System.out.println();
-				 System.out.print("Destino: ");
-				 PosicaoDaPeca destino = UI.lerPosicionamentoDasPecas(sc);
-				*/
-					
+								
+				 PosicaoDaPeca destinoCapturada= new PosicaoDaPeca ((char) ('a' + colunaCapturada), 8 - linhaCapturada);
 				 PecaDaPartida pecaCapturada = partidaDeDamas.performaMovimentoDaPartida(origem, destino, destinoCapturada); 
 				 if(pecaCapturada != null) {
 					capturada.add(pecaCapturada); 
 				 }
+				
 		 
 			 }	
 			 catch(PartidaExcecao e) {
