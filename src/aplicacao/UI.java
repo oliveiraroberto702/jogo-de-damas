@@ -187,5 +187,128 @@ public class UI {
 		
 		
 	}
-	 
+	public static PosicaoDaPeca posicaoPecaCapturada(PartidaDeDamas partidaDeDamas, boolean[][] possiveisMovimentos, int origemlinha, char origemcoluna) {
+
+		PecaDaPartida [][] pec = partidaDeDamas.getPecas();
+		int linhaCapturada=0;
+		int colunaCapturada=0;
+		boolean ativaCapturada=false;
+		int i1=0, j1=0,i2=0,j2=0;
+			 
+		for (int i=0; i<possiveisMovimentos.length;i++) {
+		for (int j=0; j<possiveisMovimentos.length;j++) {
+				 
+				if(possiveisMovimentos[i][j] == true) {
+					if(i1==0 && j1==0) {
+						i1=i;
+						j1=j;
+					} else {
+						i2=i;
+						j2=j;
+					}
+				}
+				System.out.print(possiveisMovimentos[i][j] + " , ");	
+			}
+			System.out.println();
+		}
+	
+		char orig_coluna=origemcoluna;
+		int orig_linha=origemlinha;
+			
+		int origLinha=8-orig_linha;
+		int origColuna=orig_coluna - 'a';
+		
+		String s = "peão";
+		boolean a;
+		if (i2==0 && j2==0 ) {
+			
+			if(partidaDeDamas.getJogadorCorrente()==Cor.BLACK && s.equals(pec[origLinha][origColuna].toString()) && (Math.abs(i1-origLinha)==2)) {
+				if (origColuna<j1) {
+				    linhaCapturada=i1-1;
+				    colunaCapturada=j1-1;
+				    ativaCapturada=true;
+				    						 
+				} else if(origColuna>j1) {
+					 linhaCapturada=i1-1;
+			    	 colunaCapturada=j1+1;
+			    	 ativaCapturada=true;
+			    	 
+				} 
+			} else if(partidaDeDamas.getJogadorCorrente()==Cor.RED && s.equals(pec[origLinha][origColuna].toString()) && (Math.abs(i1-origLinha)==2)) {
+				
+                if (origColuna<j1)	{				
+				    linhaCapturada=i1+1;
+				    colunaCapturada=j1-1;
+				    ativaCapturada=true;
+				 } else if(origColuna>j1) {
+               	 linhaCapturada=i1+1;
+               	 colunaCapturada=j1+1;
+               	 ativaCapturada=true;
+
+
+                }	 
+			}   
+		
+		} else if (i2 !=0 || j2 !=0) {
+			if(partidaDeDamas.getJogadorCorrente()==Cor.BLACK && s.equals(pec[origLinha][origColuna].toString()) && (Math.abs(i1-origLinha)==2)) {
+				if(origColuna<j1) {
+					linhaCapturada=i1-1;
+					colunaCapturada=j1-1;
+					ativaCapturada=true;
+					
+
+		        } else if(origColuna>j1) {
+				    linhaCapturada=i1-1;
+					colunaCapturada=j1+1;
+					ativaCapturada=true;
+					
+
+		        }
+			} else	if(partidaDeDamas.getJogadorCorrente()==Cor.BLACK && s.equals(pec[origLinha][origColuna].toString()) && (Math.abs(i2-origLinha)==2)) {	
+				   if(origColuna<j2) {
+				      linhaCapturada=i2-1;
+				      colunaCapturada=j2-1;
+				      ativaCapturada=true;
+				      
+
+		            } else if(origColuna>j2) {
+					  linhaCapturada=i2-1;
+					  colunaCapturada=j2+1;
+					  ativaCapturada=true;
+					  
+		            }
+			} else if(partidaDeDamas.getJogadorCorrente()==Cor.RED && s.equals(pec[origLinha][origColuna].toString()) && (Math.abs(i1-origLinha)==2)) {
+				
+                     if (origColuna<j1)	{				
+				          linhaCapturada=i1+1;
+				          colunaCapturada=j1-1;
+				          ativaCapturada=true;
+				          
+
+                     } else if(origColuna>j1) {
+               	      linhaCapturada=i1+1;
+               	      colunaCapturada=j1+1;
+               	      ativaCapturada=true;
+               	      
+
+                     }    
+           } else if(partidaDeDamas.getJogadorCorrente()==Cor.RED && s.equals(pec[origLinha][origColuna].toString()) && (Math.abs(i2-origLinha)==2)) {    	      
+                     if (origColuna<j2)	{				
+			              linhaCapturada=i2+1;
+			              colunaCapturada=j2-1;
+			              ativaCapturada=true;
+			              
+
+                      } else if(origColuna>j2) {
+          	               linhaCapturada=i2+1;
+          	               colunaCapturada=j2+1;
+          	               ativaCapturada=true;
+          	            
+
+                      }          
+           }          
+		}              
+        return new PosicaoDaPeca((char)('a' +colunaCapturada),8 - linhaCapturada);	
+        
+	}
 }
