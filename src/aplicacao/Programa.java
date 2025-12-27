@@ -19,12 +19,11 @@ class Programa {
 		 Scanner sc = new Scanner(System.in);
 		 PartidaDeDamas partidaDeDamas = new PartidaDeDamas();
 		 List<PecaDaPartida> capturada = new ArrayList<>();
-		// boolean ativaCapturada=false; 
-		// int linhaCapturada, colunaCapturada; //meu
-		 
+				 
+
 		 while (true) {
 			 try {
-			//	 linhaCapturada=0; colunaCapturada=0;
+			     String tipo=null;
 				 UI.limpaTela();
 				 UI.imprimePartida(partidaDeDamas, capturada);
 				 System.out.println();
@@ -33,7 +32,7 @@ class Programa {
 				 
 				 boolean [][] possiveisMovimentos = partidaDeDamas.possiveisMovimentos(origem);
 				
-				UI.limpaTela();
+			    UI.limpaTela();
 						 
 				 UI.montaTabuleiro(partidaDeDamas.getPecas(), possiveisMovimentos);
 				 System.out.println("Turno: " + partidaDeDamas.getTurno());
@@ -42,12 +41,14 @@ class Programa {
 				 System.out.println();
 				 System.out.print("Destino: ");
 				 PosicaoDaPeca destino = UI.lerPosicionamentoDasPecas(sc);
-				 PosicaoDaPeca destinoCapturada =UI.posicaoPecaCapturada(partidaDeDamas, possiveisMovimentos, origem.getLinha(), origem.getColuna()); 
-				 			
-				 
+				
+				 PosicaoDaPeca destinoCapturada =UI.posicaoPecaCapturada(partidaDeDamas, possiveisMovimentos, origem.getLinha(), origem.getColuna(), tipo); 
 				 PecaDaPartida pecaCapturada = partidaDeDamas.performaMovimentoDaPartida(origem, destino, destinoCapturada); 
 				 if(pecaCapturada != null) {
 					capturada.add(pecaCapturada); 
+					System.out.println(partidaDeDamas.capturaAtivada); //
+					System.out.println(partidaDeDamas.getJogadorCorrente());
+					
 				 }
 				
 		 

@@ -187,12 +187,12 @@ public class UI {
 		
 		
 	}
-	public static PosicaoDaPeca posicaoPecaCapturada(PartidaDeDamas partidaDeDamas, boolean[][] possiveisMovimentos, int origemlinha, char origemcoluna) {
+	public static PosicaoDaPeca posicaoPecaCapturada(PartidaDeDamas partidaDeDamas, boolean[][] possiveisMovimentos, int origemlinha, char origemcoluna, String tipo) {
 
 		PecaDaPartida [][] pec = partidaDeDamas.getPecas();
 		int linhaCapturada=0;
 		int colunaCapturada=0;
-		boolean ativaCapturada=false;
+		String ativaCapturada=tipo;
 		int i1=0, j1=0,i2=0,j2=0;
 			 
 		for (int i=0; i<possiveisMovimentos.length;i++) {
@@ -219,19 +219,19 @@ public class UI {
 		int origColuna=orig_coluna - 'a';
 		
 		String s = "peão";
-		boolean a;
+		
 		if (i2==0 && j2==0 ) {
 			
 			if(partidaDeDamas.getJogadorCorrente()==Cor.BLACK && s.equals(pec[origLinha][origColuna].toString()) && (Math.abs(i1-origLinha)==2)) {
 				if (origColuna<j1) {
 				    linhaCapturada=i1-1;
 				    colunaCapturada=j1-1;
-				    ativaCapturada=true;
+				    ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"se";
 				    						 
 				} else if(origColuna>j1) {
 					 linhaCapturada=i1-1;
 			    	 colunaCapturada=j1+1;
-			    	 ativaCapturada=true;
+			    	 ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"sw";
 			    	 
 				} 
 			} else if(partidaDeDamas.getJogadorCorrente()==Cor.RED && s.equals(pec[origLinha][origColuna].toString()) && (Math.abs(i1-origLinha)==2)) {
@@ -239,11 +239,11 @@ public class UI {
                 if (origColuna<j1)	{				
 				    linhaCapturada=i1+1;
 				    colunaCapturada=j1-1;
-				    ativaCapturada=true;
+				    ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) +"ne";
 				 } else if(origColuna>j1) {
                	 linhaCapturada=i1+1;
                	 colunaCapturada=j1+1;
-               	 ativaCapturada=true;
+               	 ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) +"nw";
 
 
                 }	 
@@ -254,13 +254,13 @@ public class UI {
 				if(origColuna<j1) {
 					linhaCapturada=i1-1;
 					colunaCapturada=j1-1;
-					ativaCapturada=true;
+					ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) +"se";
 					
 
 		        } else if(origColuna>j1) {
 				    linhaCapturada=i1-1;
 					colunaCapturada=j1+1;
-					ativaCapturada=true;
+					ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) + "sw";
 					
 
 		        }
@@ -268,13 +268,13 @@ public class UI {
 				   if(origColuna<j2) {
 				      linhaCapturada=i2-1;
 				      colunaCapturada=j2-1;
-				      ativaCapturada=true;
+				      ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) +"se";
 				      
 
 		            } else if(origColuna>j2) {
 					  linhaCapturada=i2-1;
 					  colunaCapturada=j2+1;
-					  ativaCapturada=true;
+					  ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"sw";
 					  
 		            }
 			} else if(partidaDeDamas.getJogadorCorrente()==Cor.RED && s.equals(pec[origLinha][origColuna].toString()) && (Math.abs(i1-origLinha)==2)) {
@@ -282,13 +282,13 @@ public class UI {
                      if (origColuna<j1)	{				
 				          linhaCapturada=i1+1;
 				          colunaCapturada=j1-1;
-				          ativaCapturada=true;
+				          ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"ne";
 				          
 
                      } else if(origColuna>j1) {
                	      linhaCapturada=i1+1;
                	      colunaCapturada=j1+1;
-               	      ativaCapturada=true;
+               	      ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"nw";
                	      
 
                      }    
@@ -296,19 +296,20 @@ public class UI {
                      if (origColuna<j2)	{				
 			              linhaCapturada=i2+1;
 			              colunaCapturada=j2-1;
-			              ativaCapturada=true;
+			              ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"ne";
 			              
 
                       } else if(origColuna>j2) {
           	               linhaCapturada=i2+1;
           	               colunaCapturada=j2+1;
-          	               ativaCapturada=true;
+          	               ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"nw";
           	            
 
                       }          
            }          
-		}              
-        return new PosicaoDaPeca((char)('a' +colunaCapturada),8 - linhaCapturada);	
+		}      
+		System.out.println(ativaCapturada);
+        return new PosicaoDaPeca((char)('a' +colunaCapturada),8 - linhaCapturada, ativaCapturada);	
         
 	}
 }
