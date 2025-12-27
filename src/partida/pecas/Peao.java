@@ -37,6 +37,13 @@ public class Peao extends PecaDaPartida {
 					if (getTabuleiro().existePosicao(p) && !getTabuleiro().haUmaPeca(p)) {
 					   mat[p.getLinha()][p.getColuna()] =true;
 					   ativou1=true; //meu
+					   p.setValores(posicao.getLinha() - 3, posicao.getColuna() - 3);
+					   if (getTabuleiro().existePosicao(p) && getTabuleiro().haUmaPeca(p) && existePecaOponente(p)) {
+						   p.setValores(posicao.getLinha() - 4, posicao.getColuna() - 4);
+						   if (getTabuleiro().existePosicao(p) && !getTabuleiro().haUmaPeca(p)) {
+							   mat[p.getLinha()][p.getColuna()] =true;
+						   }
+					   }
 					}   
 				}
 			}
@@ -58,6 +65,13 @@ public class Peao extends PecaDaPartida {
 								mat[p.getLinha()][p.getColuna()] =false; //meu
 							} // meu	
 						}
+						p.setValores(posicao.getLinha() - 3, posicao.getColuna() + 3);
+						if (getTabuleiro().existePosicao(p) && getTabuleiro().haUmaPeca(p) && existePecaOponente(p)) {
+						   p.setValores(posicao.getLinha() - 4, posicao.getColuna() +4);
+						   if (getTabuleiro().existePosicao(p) && !getTabuleiro().haUmaPeca(p)) {
+							   mat[p.getLinha()][p.getColuna()] =true;
+						   }
+						}
 					}	
 				}
 			}
@@ -73,6 +87,13 @@ public class Peao extends PecaDaPartida {
 					if (getTabuleiro().existePosicao(p) && !getTabuleiro().haUmaPeca(p)) {
 						mat[p.getLinha()][p.getColuna()] =true;
 						ativou1=true;
+						p.setValores(posicao.getLinha() + 3, posicao.getColuna() - 3);
+						if (getTabuleiro().existePosicao(p) && getTabuleiro().haUmaPeca(p) && existePecaOponente(p)) {
+						   p.setValores(posicao.getLinha() + 4, posicao.getColuna() - 4);
+						   if (getTabuleiro().existePosicao(p) && !getTabuleiro().haUmaPeca(p)) {
+							   mat[p.getLinha()][p.getColuna()] =true;
+						   }
+						}
 					}	
 				}
 			}
@@ -92,6 +113,13 @@ public class Peao extends PecaDaPartida {
 							if(getTabuleiro().existePosicao(p)) {
 								mat[p.getLinha()][p.getColuna()] =false;
 							}	
+						}
+						p.setValores(posicao.getLinha() + 3, posicao.getColuna() + 3);
+					    if (getTabuleiro().existePosicao(p) && getTabuleiro().haUmaPeca(p) && existePecaOponente(p)) {
+						   p.setValores(posicao.getLinha() + 4, posicao.getColuna() + 4);
+						   if (getTabuleiro().existePosicao(p) && !getTabuleiro().haUmaPeca(p)) {
+							   mat[p.getLinha()][p.getColuna()] =true;
+						   }
 						}
 					}
 				}

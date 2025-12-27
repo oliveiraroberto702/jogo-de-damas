@@ -308,6 +308,7 @@ public class UI {
                       }          
            }          
 		}      
+		
 		System.out.println(ativaCapturada);
         return new PosicaoDaPeca((char)('a' +colunaCapturada),8 - linhaCapturada, ativaCapturada);	
         

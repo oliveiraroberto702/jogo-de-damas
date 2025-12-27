@@ -14,12 +14,14 @@ public class PartidaDeDamas {
 	private Cor jogadorCorrente;
 	private Tabuleiro tabuleiro;
 	public String capturaAtivada; // meu
+	public boolean turnoNaoMuda;// meu
 	private List<Peca> pecasNoTabuleiro = new ArrayList<>();
 	private List<Peca> pecasCapturadas = new ArrayList<>();
 	
 	public PartidaDeDamas() {
 		tabuleiro = new Tabuleiro(8,8); // aqui é que se define que o tabuleiro tem que ser 8 x 8
 		turno=1;
+		turnoNaoMuda=true; //
 		jogadorCorrente= Cor.RED;
 		cargaInicial();
 	}
@@ -75,12 +77,15 @@ public class PartidaDeDamas {
 		
 		if(posicaoCapturada.getTipo() != null) {
 			if (!(posicaoCapturada.getTipo().substring(0,3)).equals("sim")) {
+				turnoNaoMuda=false;
 				proximoTurno();
 				
 			}	
 			capturaAtivada=posicaoCapturada.getTipo().substring(0,3) + posicaoCapturada.getTipo().substring(3);//
+			turnoNaoMuda=true;
 			
 		}  else {
+			turnoNaoMuda=false;
 			proximoTurno();
 		}
 		return (PecaDaPartida) pecaCapturada;
@@ -124,7 +129,7 @@ public class PartidaDeDamas {
 		}
 	}
 	
-	private void proximoTurno() {
+	public void proximoTurno() { //private void proximoTurno() {
 		turno++;
 		jogadorCorrente = ((jogadorCorrente == Cor.RED) ? Cor.BLACK: Cor.RED);
 		
