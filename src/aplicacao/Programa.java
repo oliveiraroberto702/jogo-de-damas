@@ -81,7 +81,7 @@ class Programa {
 						       colunacap=(partidaDeDamas.capturaAtivada.charAt(3) - 'a')-1;
 						   }
 						   if (dirCap.equals("se")) {
-						       linhacap=(8-Integer.parseInt(partidaDeDamas.capturaAtivada.substring(4,5)))-1;
+						       linhacap=(8-Integer.parseInt(partidaDeDamas.capturaAtivada.substring(4,5)))+1;
 						       colunacap=(partidaDeDamas.capturaAtivada.charAt(3) - 'a')+1;
 						   }
 						   pec[linhacap][colunacap] = false;
