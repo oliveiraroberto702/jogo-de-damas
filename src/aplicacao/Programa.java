@@ -62,7 +62,7 @@ class Programa {
 						   System.out.println();
 					   }
 					   System.out.println();
-					   if (ntrue == 2) {
+					   if (ntrue == 2  || ntrue==3) {
 						   
 						   origem=destino;
 						   zonaCapturada=true;

@@ -37,15 +37,19 @@ public class Peao extends PecaDaPartida {
 					if (getTabuleiro().existePosicao(p) && !getTabuleiro().haUmaPeca(p)) {
 					   mat[p.getLinha()][p.getColuna()] =true;
 					   ativou1=true; //meu
-					   p.setValores(posicao.getLinha() - 3, posicao.getColuna() - 3);
-					   if (getTabuleiro().existePosicao(p) && getTabuleiro().haUmaPeca(p) && existePecaOponente(p)) {
-						   p.setValores(posicao.getLinha() - 4, posicao.getColuna() - 4);
-						   if (getTabuleiro().existePosicao(p) && !getTabuleiro().haUmaPeca(p)) {
-							   mat[p.getLinha()][p.getColuna()] =true;
+					   for(int i=2; i<mat.length;i+=2) {
+						   p.setValores(posicao.getLinha() -i-1, posicao.getColuna() -i-1);
+						   if (getTabuleiro().existePosicao(p) && getTabuleiro().haUmaPeca(p) && existePecaOponente(p)) {
+							   p.setValores(posicao.getLinha() -i-2, posicao.getColuna() -i-2);
+							   if (getTabuleiro().existePosicao(p) && !getTabuleiro().haUmaPeca(p)) {
+								   mat[p.getLinha()][p.getColuna()] =true;
+							   } else {
+								   break;
+							   }
 						   }
-					   }
-					}   
-				}
+					   }   
+					}
+				}	
 			}
 			 
 			//ne

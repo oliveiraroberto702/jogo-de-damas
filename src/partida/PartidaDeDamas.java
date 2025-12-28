@@ -143,30 +143,31 @@ public class PartidaDeDamas {
 	   
 		colocaNovaPeca('b',8, new Peao(tabuleiro, Cor.BLACK));
 		colocaNovaPeca('d',8, new Peao(tabuleiro, Cor.BLACK));
-	//	colocaNovaPeca('f',8, new Peao(tabuleiro, Cor.BLACK));
+		colocaNovaPeca('f',8, new Peao(tabuleiro, Cor.BLACK));
 		colocaNovaPeca('h',8, new Peao(tabuleiro, Cor.BLACK));
 		colocaNovaPeca('a',7, new Peao(tabuleiro, Cor.BLACK));
 	    colocaNovaPeca('c',7, new Peao(tabuleiro, Cor.BLACK));
 		colocaNovaPeca('e',7, new Peao(tabuleiro, Cor.BLACK));
 		colocaNovaPeca('g',7, new Peao(tabuleiro, Cor.BLACK));
-		colocaNovaPeca('c',5, new Peao(tabuleiro, Cor.BLACK));  //b6
-	//	colocaNovaPeca('d',6, new Peao(tabuleiro, Cor.BLACK));
+		colocaNovaPeca('b',6, new Peao(tabuleiro, Cor.BLACK));  
+		colocaNovaPeca('d',6, new Peao(tabuleiro, Cor.BLACK));
 		colocaNovaPeca('f',6, new Peao(tabuleiro, Cor.BLACK));
 		colocaNovaPeca('h',6, new Peao(tabuleiro, Cor.BLACK));
 		
 	
 		colocaNovaPeca('a',3, new Peao(tabuleiro, Cor.RED));
 		colocaNovaPeca('c',3, new Peao(tabuleiro, Cor.RED));
-		colocaNovaPeca('e',3, new Peao(tabuleiro, Cor.RED));
+	//	colocaNovaPeca('e',3, new Peao(tabuleiro, Cor.RED));
 		colocaNovaPeca('g',3, new Peao(tabuleiro, Cor.RED));
 		colocaNovaPeca('b',2, new Peao(tabuleiro, Cor.RED));
 		colocaNovaPeca('d',2, new Peao(tabuleiro, Cor.RED));
-		colocaNovaPeca('f',2, new Peao(tabuleiro, Cor.RED));
+		colocaNovaPeca('f',2, new Peao(tabuleiro, Cor.BLACK));
+		colocaNovaPeca('d',4, new Peao(tabuleiro, Cor.BLACK));//
 		colocaNovaPeca('h',2, new Peao(tabuleiro, Cor.RED));
 		colocaNovaPeca('a',1, new Peao(tabuleiro, Cor.RED));
 		colocaNovaPeca('c',1, new Peao(tabuleiro, Cor.RED));
 		colocaNovaPeca('e',1, new Peao(tabuleiro, Cor.RED));
-		colocaNovaPeca('b',4, new Peao(tabuleiro, Cor.RED));   //g1
+		colocaNovaPeca('g',1, new Peao(tabuleiro, Cor.RED));   
 		
 		
 		
