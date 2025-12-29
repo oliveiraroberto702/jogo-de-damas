@@ -143,27 +143,27 @@ public class PartidaDeDamas {
 	   
 		colocaNovaPeca('b',8, new Peao(tabuleiro, Cor.BLACK));
 		colocaNovaPeca('d',8, new Peao(tabuleiro, Cor.BLACK));
-		colocaNovaPeca('f',8, new Peao(tabuleiro, Cor.BLACK));
+		colocaNovaPeca('f',8, new Peao(tabuleiro, Cor.BLACK));  //f8
 		colocaNovaPeca('h',8, new Peao(tabuleiro, Cor.BLACK));
-		colocaNovaPeca('a',7, new Peao(tabuleiro, Cor.BLACK));
-	    colocaNovaPeca('c',7, new Peao(tabuleiro, Cor.RED)); //BLACK
+		colocaNovaPeca('b',6, new Peao(tabuleiro, Cor.BLACK)); //a7
+	    colocaNovaPeca('c',7, new Peao(tabuleiro, Cor.BLACK)); 
 		colocaNovaPeca('e',7, new Peao(tabuleiro, Cor.BLACK));
 		colocaNovaPeca('g',7, new Peao(tabuleiro, Cor.BLACK)); 
-		colocaNovaPeca('b',6, new Peao(tabuleiro, Cor.BLACK));  
-		//colocaNovaPeca('d',6, new Peao(tabuleiro, Cor.BLACK));
-		colocaNovaPeca('f',6, new Peao(tabuleiro, Cor.BLACK));
+		colocaNovaPeca('b',4, new Peao(tabuleiro, Cor.BLACK));  // b6
+		colocaNovaPeca('d',4, new Peao(tabuleiro, Cor.BLACK));  // d6
+		colocaNovaPeca('f',4, new Peao(tabuleiro, Cor.BLACK));  // f6
 		colocaNovaPeca('h',6, new Peao(tabuleiro, Cor.BLACK));
 		
-		colocaNovaPeca('e',5, new Peao(tabuleiro, Cor.RED)); //
+		//colocaNovaPeca('e',5, new Peao(tabuleiro, Cor.RED)); //
 	
-		colocaNovaPeca('a',3, new Peao(tabuleiro, Cor.RED));
-		colocaNovaPeca('c',3, new Peao(tabuleiro, Cor.RED)); 
-		colocaNovaPeca('e',3, new Peao(tabuleiro, Cor.RED));
+		colocaNovaPeca('a',3, new Peao(tabuleiro, Cor.RED));  //A3
+		colocaNovaPeca('c',3, new Peao(tabuleiro, Cor.RED));  //C3 
+		colocaNovaPeca('e',3, new Peao(tabuleiro, Cor.RED));  //e3 
 		colocaNovaPeca('g',3, new Peao(tabuleiro, Cor.RED));
 		colocaNovaPeca('b',2, new Peao(tabuleiro, Cor.RED)); 
 		colocaNovaPeca('d',2, new Peao(tabuleiro, Cor.RED));
 		colocaNovaPeca('f',2, new Peao(tabuleiro, Cor.RED));
-	//	colocaNovaPeca('h',2, new Peao(tabuleiro, Cor.RED));
+		colocaNovaPeca('h',2, new Peao(tabuleiro, Cor.RED));
 		colocaNovaPeca('a',1, new Peao(tabuleiro, Cor.RED));
 		colocaNovaPeca('c',1, new Peao(tabuleiro, Cor.RED));
 		colocaNovaPeca('e',1, new Peao(tabuleiro, Cor.RED));

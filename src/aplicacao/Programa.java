@@ -66,7 +66,7 @@ class Programa {
 						   
 						   origem=destino;
 						   zonaCapturada=true;
-						   dirCap=partidaDeDamas.capturaAtivada.substring(5);
+						   dirCap=partidaDeDamas.capturaAtivada.substring(5,7);
 						  					  
 						   if (dirCap.equals("nw")) {
 						       linhacap=(8-Integer.parseInt(partidaDeDamas.capturaAtivada.substring(4,5)))-1;
@@ -85,7 +85,38 @@ class Programa {
 						       colunacap=(partidaDeDamas.capturaAtivada.charAt(3) - 'a')+1;
 						   }
 						   pec[linhacap][colunacap] = false;
-						   	   	
+						   if(partidaDeDamas.getJogadorCorrente()==Cor.RED && dirCap.equals("nw")) {
+							   colunacap=colunacap+4;
+							   if(pec[linhacap][colunacap]==true) {
+								   pec[linhacap][colunacap]=false;
+								   partidaDeDamas.proximoTurno();
+								   zonaCapturada=true;
+							   }
+						   }
+						   if(partidaDeDamas.getJogadorCorrente()==Cor.RED && dirCap.equals("ne")) {
+							   colunacap=colunacap-4;
+							   if(pec[linhacap][colunacap]==true) {
+								   pec[linhacap][colunacap]=false;
+								   partidaDeDamas.proximoTurno();
+								   zonaCapturada=false;
+							   }
+						   }
+						   if(partidaDeDamas.getJogadorCorrente()==Cor.BLACK && dirCap.equals("sw")) {
+							   colunacap=colunacap+4;
+							   if(pec[linhacap][colunacap]==true) {
+								   pec[linhacap][colunacap]=false;
+								   partidaDeDamas.proximoTurno();
+								   zonaCapturada=false;
+							   }
+						   }
+						   if(partidaDeDamas.getJogadorCorrente()==Cor.BLACK && dirCap.equals("se")) {
+							   colunacap=colunacap-4;
+							   if(pec[linhacap][colunacap]==true) {
+								   pec[linhacap][colunacap]=false;
+								   partidaDeDamas.proximoTurno();
+								   zonaCapturada=false;
+							   }
+						   }	
 					   } else {
 						   partidaDeDamas.proximoTurno();
 						   

@@ -226,12 +226,12 @@ public class UI {
 				if (origColuna<j1) {
 				    linhaCapturada=i1-1;
 				    colunaCapturada=j1-1;
-				    ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"se";
+				    ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"se"+orig_coluna+orig_linha;
 				    						 
 				} else if(origColuna>j1) {
 					 linhaCapturada=i1-1;
 			    	 colunaCapturada=j1+1;
-			    	 ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"sw";
+			    	 ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"sw"+orig_coluna+orig_linha;
 			    	 
 				} 
 			} else if(partidaDeDamas.getJogadorCorrente()==Cor.RED && s.equals(pec[origLinha][origColuna].toString()) && (Math.abs(i1-origLinha)==2)) {
@@ -239,11 +239,11 @@ public class UI {
                 if (origColuna<j1)	{				
 				    linhaCapturada=i1+1;
 				    colunaCapturada=j1-1;
-				    ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) +"ne";
+				    ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) +"ne"+orig_coluna+orig_linha;
 				 } else if(origColuna>j1) {
                	 linhaCapturada=i1+1;
                	 colunaCapturada=j1+1;
-               	 ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) +"nw";
+               	 ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) +"nw"+orig_coluna+orig_linha;
 
 
                 }	 
@@ -254,13 +254,13 @@ public class UI {
 				if(origColuna<j1) {
 					linhaCapturada=i1-1;
 					colunaCapturada=j1-1;
-					ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) +"se";
+					ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) +"se"+orig_coluna+orig_linha;
 					
 
 		        } else if(origColuna>j1) {
 				    linhaCapturada=i1-1;
 					colunaCapturada=j1+1;
-					ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) + "sw";
+					ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) + "sw"+orig_coluna+orig_linha;
 					
 
 		        }
@@ -268,13 +268,13 @@ public class UI {
 				   if(origColuna<j2) {
 				      linhaCapturada=i2-1;
 				      colunaCapturada=j2-1;
-				      ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) +"se";
+				      ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) +"se"+orig_coluna+orig_linha;
 				      
 
 		            } else if(origColuna>j2) {
 					  linhaCapturada=i2-1;
 					  colunaCapturada=j2+1;
-					  ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"sw";
+					  ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"sw"+orig_coluna+orig_linha;
 					  
 		            }
 			} else if(partidaDeDamas.getJogadorCorrente()==Cor.RED && s.equals(pec[origLinha][origColuna].toString()) && (Math.abs(i1-origLinha)==2)) {
@@ -282,13 +282,13 @@ public class UI {
                      if (origColuna<j1)	{				
 				          linhaCapturada=i1+1;
 				          colunaCapturada=j1-1;
-				          ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"ne";
+				          ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"ne"+orig_coluna+orig_linha;
 				          
 
                      } else if(origColuna>j1) {
                	      linhaCapturada=i1+1;
                	      colunaCapturada=j1+1;
-               	      ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"nw";
+               	      ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"nw"+orig_coluna+orig_linha;
                	      
 
                      }    
@@ -296,13 +296,13 @@ public class UI {
                      if (origColuna<j2)	{				
 			              linhaCapturada=i2+1;
 			              colunaCapturada=j2-1;
-			              ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"ne";
+			              ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"ne"+orig_coluna+orig_linha;
 			              
 
                       } else if(origColuna>j2) {
           	               linhaCapturada=i2+1;
           	               colunaCapturada=j2+1;
-          	               ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"nw";
+          	               ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"nw"+orig_coluna+orig_linha;
           	            
 
                       }          
