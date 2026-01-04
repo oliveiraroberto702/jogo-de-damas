@@ -187,130 +187,79 @@ public class UI {
 		
 		
 	}
-	public static PosicaoDaPeca posicaoPecaCapturada(PartidaDeDamas partidaDeDamas, boolean[][] possiveisMovimentos, int origemlinha, char origemcoluna, String tipo) {
+	public static PosicaoDaPeca posicaoPecaCapturada(PartidaDeDamas partidaDeDamas, boolean[][] possiveisMovimentos, int origemlinha, char origemcoluna, int destinolinha, char destinocoluna, String tipo) {
 
 		PecaDaPartida [][] pec = partidaDeDamas.getPecas();
 		int linhaCapturada=0;
 		int colunaCapturada=0;
 		String ativaCapturada=tipo;
-		int i1=0, j1=0,i2=0,j2=0;
-			 
+		char orig_coluna=origemcoluna;
+		int orig_linha=origemlinha;
+		char dest_coluna=destinocoluna;
+		int dest_linha=destinolinha;
+		int origLinha=8-orig_linha;
+		int origColuna=orig_coluna - 'a';
+		int destLinha=8-dest_linha;
+		int destColuna=dest_coluna - 'a';
+		String dirCap="";
+		if (origLinha-destLinha>0 && origColuna-destColuna>0) {
+			dirCap="nw";
+		} else if (origLinha-destLinha>0 && origColuna-destColuna<0) {
+			dirCap="ne";
+		} else if (origLinha-destLinha<0 && origColuna-destColuna>0) {
+			dirCap="sw";	
+		} else if (origLinha-destLinha<0 && origColuna-destColuna<0) {
+			dirCap="se";
+		}
+		int ntrue=0;
+		
 		for (int i=0; i<possiveisMovimentos.length;i++) {
-		for (int j=0; j<possiveisMovimentos.length;j++) {
-				 
+			for (int j=0; j<possiveisMovimentos.length;j++) {
 				if(possiveisMovimentos[i][j] == true) {
-					if(i1==0 && j1==0) {
-						i1=i;
-						j1=j;
-					} else {
-						i2=i;
-						j2=j;
-					}
+					ntrue++;
 				}
 				System.out.print(possiveisMovimentos[i][j] + " , ");	
 			}
-			System.out.println();
+				System.out.println();
 		}
-	
-		char orig_coluna=origemcoluna;
-		int orig_linha=origemlinha;
-			
-		int origLinha=8-orig_linha;
-		int origColuna=orig_coluna - 'a';
+		System.out.println(dirCap + "   " + ntrue);
+		if (((ntrue==2 || ntrue==1) && Math.abs(origLinha-destLinha)==1 && Math.abs(origColuna - destColuna)==1)||(Math.abs(origLinha-destLinha)==0 && Math.abs(origColuna-destColuna)==0)) {
+			ativaCapturada="nao";
+			return new PosicaoDaPeca('a',8, ativaCapturada);	
+		} else if (dirCap=="nw") {
+			       linhaCapturada=origLinha-1;
+		           colunaCapturada=origColuna-1;
+		           ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+dirCap;
+			      possiveisMovimentos[origLinha-2][origColuna-2]=false;
+		} else if (dirCap=="ne") {
+				  linhaCapturada=origLinha-1;
+			      colunaCapturada=origColuna+1;
+			      ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+dirCap;
+				  possiveisMovimentos[origLinha-2][origColuna+2]=false;	       
+		} else if (dirCap=="sw") {
+			  linhaCapturada=origLinha+1;
+		      colunaCapturada=origColuna-1;
+		      ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+dirCap;
+			  possiveisMovimentos[origLinha+2][origColuna-2]=false;	  	           
+		} else if (dirCap=="se") {
+			  linhaCapturada=origLinha+1;
+		      colunaCapturada=origColuna+1;
+		      ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+dirCap;
+			 possiveisMovimentos[origLinha+2][origColuna+2]=false;	  	
+		}
+        for (int i=0; i<possiveisMovimentos.length;i++) {
+        	for(int j=0;j<possiveisMovimentos.length;j++) {
+        		if(possiveisMovimentos[i][j] == true) {
+        			if ((dirCap=="nw" || dirCap=="sw") && j > colunaCapturada) {
+        				possiveisMovimentos[i][j]=false;
+        			} else if ((dirCap=="ne" || dirCap=="se") && j < colunaCapturada) {
+        				possiveisMovimentos[i][j]=false;
+        			} 
+        				
+        		}
+        	}
+        }
+		return new PosicaoDaPeca((char)('a' +colunaCapturada),8 - linhaCapturada, ativaCapturada);	
 		
-		String s = "peão";
-		
-		if (i2==0 && j2==0 ) {
-			
-			if(partidaDeDamas.getJogadorCorrente()==Cor.BLACK && s.equals(pec[origLinha][origColuna].toString()) && (Math.abs(i1-origLinha)==2)) {
-				if (origColuna<j1) {
-				    linhaCapturada=i1-1;
-				    colunaCapturada=j1-1;
-				    ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"se";
-				    						 
-				} else if(origColuna>j1) {
-					 linhaCapturada=i1-1;
-			    	 colunaCapturada=j1+1;
-			    	 ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"sw";
-			    	 
-				} 
-			} else if(partidaDeDamas.getJogadorCorrente()==Cor.RED && s.equals(pec[origLinha][origColuna].toString()) && (Math.abs(i1-origLinha)==2)) {
-				
-                if (origColuna<j1)	{				
-				    linhaCapturada=i1+1;
-				    colunaCapturada=j1-1;
-				    ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) +"ne";
-				 } else if(origColuna>j1) {
-               	 linhaCapturada=i1+1;
-               	 colunaCapturada=j1+1;
-               	 ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) +"nw";
-
-
-                }	 
-			}   
-		
-		} else if (i2 !=0 || j2 !=0) {
-			if(partidaDeDamas.getJogadorCorrente()==Cor.BLACK && s.equals(pec[origLinha][origColuna].toString()) && (Math.abs(i1-origLinha)==2)) {
-				if(origColuna<j1) {
-					linhaCapturada=i1-1;
-					colunaCapturada=j1-1;
-					ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) +"se";
-					
-
-		        } else if(origColuna>j1) {
-				    linhaCapturada=i1-1;
-					colunaCapturada=j1+1;
-					ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) + "sw";
-					
-
-		        }
-			} else	if(partidaDeDamas.getJogadorCorrente()==Cor.BLACK && s.equals(pec[origLinha][origColuna].toString()) && (Math.abs(i2-origLinha)==2)) {	
-				   if(origColuna<j2) {
-				      linhaCapturada=i2-1;
-				      colunaCapturada=j2-1;
-				      ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada) +"se";
-				      
-
-		            } else if(origColuna>j2) {
-					  linhaCapturada=i2-1;
-					  colunaCapturada=j2+1;
-					  ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"sw";
-					  
-		            }
-			} else if(partidaDeDamas.getJogadorCorrente()==Cor.RED && s.equals(pec[origLinha][origColuna].toString()) && (Math.abs(i1-origLinha)==2)) {
-				
-                     if (origColuna<j1)	{				
-				          linhaCapturada=i1+1;
-				          colunaCapturada=j1-1;
-				          ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"ne";
-				          
-
-                     } else if(origColuna>j1) {
-               	      linhaCapturada=i1+1;
-               	      colunaCapturada=j1+1;
-               	      ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"nw";
-               	      
-
-                     }    
-           } else if(partidaDeDamas.getJogadorCorrente()==Cor.RED && s.equals(pec[origLinha][origColuna].toString()) && (Math.abs(i2-origLinha)==2)) {    	      
-                     if (origColuna<j2)	{				
-			              linhaCapturada=i2+1;
-			              colunaCapturada=j2-1;
-			              ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"ne";
-			              
-
-                      } else if(origColuna>j2) {
-          	               linhaCapturada=i2+1;
-          	               colunaCapturada=j2+1;
-          	               ativaCapturada="sim"+((char)('a' +colunaCapturada))+(8 - linhaCapturada)+"nw";
-          	            
-
-                      }          
-           }          
-		}      
-		
-		System.out.println(ativaCapturada);
-        return new PosicaoDaPeca((char)('a' +colunaCapturada),8 - linhaCapturada, ativaCapturada);	
-        
 	}
 }

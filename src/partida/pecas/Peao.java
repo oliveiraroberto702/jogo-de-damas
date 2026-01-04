@@ -47,8 +47,12 @@ public class Peao extends PecaDaPartida {
 								   break;
 							   }
 						   }
-					   }   
+					   }
+					//   for(int j=3;j<mat.length;j+=2) {
+						   
+					   }
 					}
+					
 				}	
 			}
 			 
